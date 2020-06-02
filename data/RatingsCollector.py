@@ -1,14 +1,14 @@
 import requests
 from xml.etree import ElementTree as ET
 
-class xmlCollector:
+class RatingsCollector:
     """ This module calls Goodreads API and extracts
     xml file for the books on a members shelf.
     
     Parameters: user_id range, folder's path to save xml.
     """
     params = {'shelf': 'read', 'per_page': 100}
-    path = 'D:/xml_temp'
+    path = 'D:/xml_temp/ratings'
 
     def __init__(self, start_user=1, end_user=1):
         self.start_user = start_user
@@ -25,4 +25,4 @@ class xmlCollector:
                 pass
 
 if __name__ == "__main__":
-    xmlCollector(1, 2).save_xml()
+    RatingsCollector(int(input('Star number: ')), int(input('End number: '))).save_xml()
