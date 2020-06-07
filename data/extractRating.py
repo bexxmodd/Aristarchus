@@ -3,13 +3,17 @@ from pathlib import Path
 from collections import defaultdict
 from xml.etree import ElementTree as ET
 
-def extract_rating(path="D:/xml_temp/ratings"):
-    ratings = defaultdict(list)
+def extract_rating(folder="D:/xml_temp/ratings"):
+    """Open all the XML files in a specified folder.
 
-    for p in Path(path).iterdir():
-        if p.is_file():
-            user = os.path.basename(p).split('.')[0]
-            root = ET.parse(p).getroot()
+    Extract user_id, book_id, & isbn13 and append to a dict.
+    """
+    ratings = defaultdict(list)
+    for f in Path(folder).iterdir(): # Iterates through the folder
+        """The File should exist in the folder and must be over 1 KB in size."""
+        if f.is_file(): 
+            user = os.path.basename(f).split('.')[0]
+            root = ET.parse(f).getroot()
 
             for i, r in zip(root.iter('book'), root.iter('rating')):
                 if r.text != '0':
@@ -18,5 +22,14 @@ def extract_rating(path="D:/xml_temp/ratings"):
                     ratings['isbn13'].append(i.find('isbn13').text)
     return ratings
 
+def deleter(folder='D:/xml_temp/ratings', kb=20):
+    count = 0
+    for f in Path(folder).iterdir():
+        if os.path.getsize(f) < (1000 * kb):
+            os.remove(f)
+            count += 1
+    print(count, "files have been deleted!")
+
 if __name__ == "__main__":
-    print('Use this module within other program...')
+    print("If you want to proceed with `deleter()` please input the path to the folder")
+    deleter(input("Path ==> "))

@@ -7,11 +7,11 @@ from collections import defaultdict
 
 
 class GoodReadsScraper():
-    """ This module scraps the information from the Goodreads webpage.
-    You provide a list of book ids as the argument and then magic happens.
+    """This module scraps the information from the Goodreads webpage.
 
+    Module take a list of ids as the argument it scraps the HTML pages.
     Attributes scraped: ISBN13, Author's name, Title, Number of pages, Edition,
-                        Cover picture url, Genres, Average rating, Total count.
+                        Cover picture URL, Genres, Average rating, Total count.
     """
     
     def __init__(self, book_id):
@@ -29,9 +29,7 @@ class GoodReadsScraper():
         return self.soups
 
     def metadata(self):
-        """
-        This method extracts full metadata from the HTML file.
-        """
+        """This method extracts full metadata from the HTML file."""
         details = defaultdict(list)
         for s, i in zip(self.soups, self.book_id):
             details['book_id'].append(i)
@@ -47,7 +45,7 @@ class GoodReadsScraper():
         return details
 
     def cover_scraper(self):
-        """ This method grabs cover picture URL.
+        """This method grabs the cover picture URL.
 
         This portion of the text is a bit problematic
         so it's handled using a try-except function.
@@ -62,9 +60,7 @@ class GoodReadsScraper():
         return cover_url
 
     def description(self):
-        """ Extract description text in a raw format
-        
-        """
+        """Extract description text in a raw format."""
         descr = defaultdict(list)
         for s, i in zip(self.soups, self.book_id):
             descr['bood_id'].append(i)

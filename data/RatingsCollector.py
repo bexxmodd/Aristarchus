@@ -2,13 +2,13 @@ import requests
 from xml.etree import ElementTree as ET
 
 class RatingsCollector:
-    """ This module calls Goodreads API and extracts
-    xml file for the books on a members shelf.
+    """This module calls Goodreads API and extracts
+    an XML file for all the books on a member's shelf.
     
-    Parameters: user_id range, folder's path to save xml.
+    Parameters: user_id range & folder's path to save XML.
     """
     params = {'shelf': 'read', 'per_page': 100}
-    path = 'D:/xml_temp/ratings'
+    path = '/home/bexx/Projects'
 
     def __init__(self, start_user=1, end_user=1):
         self.start_user = start_user
@@ -25,4 +25,4 @@ class RatingsCollector:
                 pass
 
 if __name__ == "__main__":
-    RatingsCollector(int(input('Star number: ')), int(input('End number: '))).save_xml()
+    RatingsCollector(int(input('Start number: ')), int(input('End number: '))).save_xml()
