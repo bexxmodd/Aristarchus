@@ -8,7 +8,7 @@ class RatingsCollector:
     Parameters: user_id range & folder's path to save XML.
     """
     params = {'shelf': 'read', 'per_page': 100}
-    path = '/home/bexx/Projects'
+    path = '/home/bexx/Projects/xml_temp/ratings'
 
     def __init__(self, start_user=1, end_user=1):
         self.start_user = start_user

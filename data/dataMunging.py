@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import re
-from metadataFromID import GoodReadsScraper
+from metadataScraping import GoodReadsScraper
 
 
 def munging(df):

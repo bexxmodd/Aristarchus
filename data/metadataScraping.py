@@ -18,8 +18,7 @@ class GoodReadsScraper():
         self.book_id = book_id
         # Iterates over the list of ids.
         # Gets HTMLs and stores as a list.
-        self.soups = [BeautifulSoup(requests.get(f'https://www.goodreads.com/book/show/{i}').text,
-                                                                'html.parser') for i in self.book_id]
+        self.soups = [BeautifulSoup(requests.get(f'https://www.goodreads.com/book/show/{i}').text, 'html.parser') for i in self.book_id]
 
     def __str__(self):
         return f"You just scrapped {len(self.book_id)} books from the Goodreads.com!"

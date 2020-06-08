@@ -9,6 +9,7 @@ structure.txt
 *.exe
 test.py
 filedeleter.py
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

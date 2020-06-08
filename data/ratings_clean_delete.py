@@ -3,7 +3,7 @@ from pathlib import Path
 from collections import defaultdict
 from xml.etree import ElementTree as ET
 
-def extract_rating(folder="D:/xml_temp/ratings"):
+def extract_rating(folder='/home/bexx/Projects/xml_temp/ratings'):
     """Open all the XML files in a specified folder.
 
     Extract user_id, book_id, & isbn13 and append to a dict.
@@ -17,12 +17,12 @@ def extract_rating(folder="D:/xml_temp/ratings"):
 
             for i, r in zip(root.iter('book'), root.iter('rating')):
                 if r.text != '0':
-                    ratings['user_id'].append(user)
-                    ratings['book_id'].append(i.find('id').text)
-                    ratings['isbn13'].append(i.find('isbn13').text)
-    return ratings
+                    ratings['user_id'].append(int(user))
+                    ratings['book_id'].append(int(i.find('id').text))
+                    ratings['rating'].append(int(r.text))
+    return dict(ratings)
 
-def deleter(folder='D:/xml_temp/ratings', kb=20):
+def deleter(folder='/home/bexx/Projects/xml_temp/ratings', kb=25):
     count = 0
     for f in Path(folder).iterdir():
         if os.path.getsize(f) < (1000 * kb):
