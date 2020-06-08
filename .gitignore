@@ -6,6 +6,8 @@ venv
 *.pkl
 *.csv
 structure.txt
+sql_commands.txt
+users_range.txt
 *.exe
 test.py
 filedeleter.py

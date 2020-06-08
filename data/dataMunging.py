@@ -14,7 +14,7 @@ def munging(df):
         df['genre'][i] = ', '.join(g)
 
     # Grab the number of pages as an integer.
-    df['pages'] = df['pages'].str.split(expand=True)[0].astype(int)
+    # df['pages'] = df['pages'].str.split(expand=True)[0].astype(int)
 
     # Extract integer value from the reviews count column.
     df['count'] = df['count'].str.strip().str.split('\\n', expand=True)[0]
