@@ -1,6 +1,6 @@
 import sqlite3
 
-from ratings_clean_delete import extract_rating
+from xmlCleanDelete import extract_rating
 
 
 # Run the `extract_rating()` method to grab the data from XML files
