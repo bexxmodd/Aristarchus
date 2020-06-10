@@ -10,7 +10,7 @@ def extract_rating(folder='/home/bexx/Projects/xml_temp/ratings'):
     """
     ratings = defaultdict(list)
     for f in Path(folder).iterdir(): # Iterates through the folder
-        """The File should exist in the folder and must be over 1 KB in size."""
+        """The File should exist in the folder."""
         if f.is_file(): 
             user = os.path.basename(f).split('.')[0]
             root = ET.parse(f).getroot()
@@ -24,30 +24,36 @@ def extract_rating(folder='/home/bexx/Projects/xml_temp/ratings'):
 
 
 def extract_meta(folder='/home/bexx/Projects/xml_temp/metadata'):
+    """Open all the XML files in a specified folder.
+
+    Extract metadata of the books and append to a dict.
+    """
     metadata = defaultdict(list)
     for f in Path(folder).iterdir(): # Iterates through the folder
-
         """The File should exist in the folder."""
-        if f.is_file(): 
-            user = os.path.basename(f).split('.')[0] # Grabs the book id
-            root = ET.parse(f).getroot()
+        try:
+            if f.is_file(): 
+                user = os.path.basename(f).split('.')[0] # Grabs the book id
+                root = ET.parse(f, parser=ET.XMLParser(encoding='utf-8')).getroot()
 
-            """Extracts metadata about the book from the XML file."""
-            for b in root.findall('book'):
-                metadata['book_id'].append(int(user))
-                metadata['title'].append(getattr(b.find('title'), 'text', None))
-                metadata['author'].append(getattr(b.find('authors//name'), 'text', None))
-                metadata['isbn13'].append(getattr(b.find('isbn13'), 'text', None))
-                metadata['published'].append(getattr(b.find('work//original_publication_year'), 'text', None))
-                metadata['pages'].append(getattr(b.find('num_pages'), 'text', None))
-                metadata['avg_rating'].append(getattr(b.find('average_rating'), 'text', None))
-                metadata['count'].append(getattr(b.find('ratings_count'), 'text', None))
-                metadata['lang'].append(getattr(b.find('language_code'), 'text', None))
-                metadata['cover_url'].append(getattr(b.find('image_url'), 'text', None))
+                """Extracts metadata about the book from the XML file."""
+                for b in root.findall('book'):
+                    metadata['book_id'].append(int(user))
+                    metadata['title'].append(getattr(b.find('title'), 'text', None))
+                    metadata['author'].append(getattr(b.find('authors//name'), 'text', None))
+                    metadata['isbn13'].append(getattr(b.find('isbn13'), 'text', None))
+                    metadata['published'].append(getattr(b.find('work//original_publication_year'), 'text', None))
+                    metadata['pages'].append(getattr(b.find('num_pages'), 'text', None))
+                    metadata['avg_rating'].append(getattr(b.find('average_rating'), 'text', None))
+                    metadata['count'].append(getattr(b.find('ratings_count'), 'text', None))
+                    metadata['lang'].append(getattr(b.find('language_code'), 'text', None))
+                    metadata['cover_url'].append(getattr(b.find('image_url'), 'text', None))
+        except:
+            pass
     return dict(metadata)
 
 
-def deleter(folder='/home/bexx/Projects/xml_temp/ratings', kb=25):
+def deleter(folder='/home/bexx/Projects/xml_temp/ratings', kb=20):
     count = 0
     for f in Path(folder).iterdir():
         if os.path.getsize(f) < (1000 * kb):

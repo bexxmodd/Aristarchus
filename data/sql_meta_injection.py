@@ -27,3 +27,6 @@ c.executemany(q, data)
 # Commit and close the connection.
 conn.commit()
 conn.close()
+
+if __name__ == "__main__":
+    print("All the data from the metadata XML folder has been injected into the Books.db metadata table")
