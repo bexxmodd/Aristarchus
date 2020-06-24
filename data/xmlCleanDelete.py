@@ -11,15 +11,18 @@ def extract_rating(folder='/home/bexx/Projects/xml_temp/ratings'):
     ratings = defaultdict(list)
     for f in Path(folder).iterdir(): # Iterates through the folder
         """The File should exist in the folder."""
-        if f.is_file(): 
-            user = os.path.basename(f).split('.')[0]
-            root = ET.parse(f).getroot()
+        try:
+            if f.is_file(): 
+                user = os.path.basename(f).split('.')[0]
+                root = ET.parse(f).getroot()
 
-            for i, r in zip(root.iter('book'), root.iter('rating')):
-                if r.text != '0':
-                    ratings['user_id'].append(int(user))
-                    ratings['book_id'].append(int(i.find('id').text))
-                    ratings['rating'].append(int(r.text))
+                for i, r in zip(root.iter('book'), root.iter('rating')):
+                    if r.text != '0':
+                        ratings['user_id'].append(int(user))
+                        ratings['book_id'].append(int(i.find('id').text))
+                        ratings['rating'].append(int(r.text))
+        except:
+            pass
     return dict(ratings)
 
 
